@@ -21,19 +21,18 @@ import java.util.jar.JarFile;
 public class EventOrderTest implements Extension {
 
     @Subscribe
-    public void onTestEvent(GeyserPreInitializeEvent event) {
+    public void onPreInit(GeyserPreInitializeEvent event) {
         logger().warning("Event fired: GeyserPreInitializeEvent");
         try {
             List<Class<?>> eventClasses = findEventClasses(findJarFilePath(Extension.class), "org/geysermc/geyser/api/event/", Event.class);
-
-            logger().info("Found " + eventClasses.size() + " classes implementing Event interface");
+            logger().info("Found " + eventClasses.size() + " classes implementing Geyser's event interface");
 
             // remove spammy event
             eventClasses.remove(GeyserBedrockPingEvent.class); // spams console
 
             for (Class<?> clazz : eventClasses) {
                 this.geyserApi().eventBus().subscribe(this, clazz.asSubclass(Event.class), (e) -> {
-                    logger().warning("[EventOrderTest] Event fired: " + clazz.getSimpleName());
+                    logger().warning("Event fired: " + clazz.getSimpleName());
                 });
             }
         } catch (ClassNotFoundException | IOException e) {
@@ -48,7 +47,6 @@ public class EventOrderTest implements Extension {
         }
 
         List<Class<?>> eventClasses = new ArrayList<>();
-
         JarFile jarFile = new JarFile(jarFilePath);
         Enumeration<JarEntry> entries = jarFile.entries();
 
