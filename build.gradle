@@ -1,31 +1,30 @@
 plugins {
     id 'java-library'
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group 'org.geyser.extension.exampleid'
 version '1.0.0'
 
 repositories {
+    //mavenLocal()
     maven {
-        url 'https://repo.opencollab.dev/maven-snapshots'
-        mavenContent {
-            snapshotsOnly()
-        }
+        url 'https://repo.opencollab.dev/main'
     }
-    maven {
-        url 'https://repo.opencollab.dev/maven-releases'
-        mavenContent {
-            releasesOnly()
-        }
-    }
-    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
     // Geyser API - needed for all extensions
-    compileOnly 'org.geysermc.geyser:api:2.1.1-SNAPSHOT'
+    compileOnly 'org.geysermc.geyser:api:2.2.0-SNAPSHOT'
+}
 
-    // Include other dependencies here - e.g. for configuration.
+jar {
+    archiveClassifier.set("unshaded")
+}
+
+shadowJar {
+    archiveBaseName.set('EventOrderTest')
+    archiveClassifier.set('')
 }
