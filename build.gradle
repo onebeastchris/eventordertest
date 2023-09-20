@@ -1,7 +1,6 @@
 plugins {
     id 'java-library'
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group 'org.geyser.extension.exampleid'
@@ -21,10 +20,5 @@ dependencies {
 }
 
 jar {
-    archiveClassifier.set("unshaded")
-}
-
-shadowJar {
-    archiveBaseName.set('EventOrderTest')
-    archiveClassifier.set('')
+    archiveClassifier.set("EventOrderTest")
 }
