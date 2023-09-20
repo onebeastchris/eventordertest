@@ -18,7 +18,3 @@ dependencies {
     // Geyser API - needed for all extensions
     compileOnly 'org.geysermc.geyser:api:2.2.0-SNAPSHOT'
 }
-
-jar {
-    archiveClassifier.set("EventOrderTest")
-}
